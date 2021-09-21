@@ -26,4 +26,18 @@ describe('Resource Router', () => {
             { 'name': 'furball', 'age': 13, id: expect.any(String) }
         );
     });
+
+    it('should PUT /cats/:id', async () => {
+        const postCatsResponse = await request(app).post('/cats').send((
+            { 'name': 'furball', 'age': 13 }
+        ));
+        const catId = postCatsResponse.body.id;
+        await request(app).put(`/cats/${catId}`).send(
+            { 'name': 'allergies', 'age': 14, id: catId }
+        );
+        const newCatObj = await request(app).get(`/cats/${catId}`);
+        expect(JSON.parse(newCatObj).toEqual(
+            { 'name': 'allergies', 'age': 14, id: catId }
+        ));
+    });
 });
