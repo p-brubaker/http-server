@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-export default class SimpleDb {
+class SimpleDb {
     constructor(rootDir) {
         this.path = rootDir;
     }
@@ -21,11 +21,12 @@ export default class SimpleDb {
     get(id) {
         const fileToRead = path.join(this.path, id);
         return fs
-            .readFile(fileToRead)
+            .readFile(fileToRead, 'utf-8')
             .then((result) => {
-                return JSON.parse(result);
+                return result;
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 return null;
             });
     }
@@ -52,3 +53,5 @@ export default class SimpleDb {
         });
     }
 }
+
+export default SimpleDb;
