@@ -27,4 +27,16 @@ describe('Body Parser takes a req obj and returns a promise for the pased body',
         const result = await bodyParser(request);
         expect(result).toEqual(parsedBody);
     });
+
+    it('should throw if failure happens in deserialization', async () => {
+        const request = { 
+            method: 'POST', 
+            url: '/cats', 
+            contentType: 'application/json',
+            // eslint-disable-next-line quotes
+            body: `[{"name': "furball"}, {"name": "other cat"}]`
+        };
+        const result = await bodyParser(request);
+        expect(result).toEqual('500 Internal Server Error');
+    });
 });
