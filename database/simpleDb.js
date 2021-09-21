@@ -25,8 +25,7 @@ class SimpleDb {
             .then((result) => {
                 return result;
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
                 return null;
             });
     }
