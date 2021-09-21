@@ -6,4 +6,9 @@ describe('Body Parser takes a req obj and returns a promise for the pased body',
         const result = await bodyParser(request);
         expect(result).toEqual(null);
     });
+
+    it('should throw if content-type is not application/json', async () => {
+        const request = { method: 'POST', url: '/cats', contentType: 'text/html' };
+        expect(await bodyParser(request)).toEqual('400 Bad Request');
+    });
 });
