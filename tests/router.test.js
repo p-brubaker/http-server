@@ -1,7 +1,16 @@
 import app from '../lib/app.js';
 import request from 'supertest';
+import { mkdir, rm } from 'fs/promises';
 
 describe('Resource Router', () => {
+    const rootDir = 'tests/__test__store';
+
+    beforeEach(() => {
+        return rm(rootDir, { force: true, recursive: true }).then(() => {
+            return mkdir(rootDir);
+        });
+    });
+
     it('should match POST /cats and GET /cats/:id', async () => {
         const postCatsResponse = await request(app).post('/cats').send((
             { 'name': 'furball', 'age': 13 }
