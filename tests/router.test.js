@@ -3,7 +3,7 @@ import request from 'supertest';
 import { mkdir, rm } from 'fs/promises';
 
 describe('Resource Router', () => {
-    const rootDir = 'tests/__test__store';
+    const rootDir = './tests/__test__store';
 
     beforeEach(() => {
         return rm(rootDir, { force: true, recursive: true }).then(() => {
