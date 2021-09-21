@@ -39,5 +39,23 @@ describe('Resource Router', () => {
         expect(JSON.parse(newCatObj.body)).toEqual(
             { 'name': 'allergies', 'age': 14, id: catId }
         );
+
+    });
+
+    it('should DELETE /cats/:id', async () => {
+        const cats = [
+            { 'name': 'cat 1', 'age': 3 },
+            { 'name': 'cat 2', 'age': 'old' }
+        ];
+        const cat1Res = await request(app).post('/cats').send(cats[0]);
+        const cat2Res = await request(app).post('/cats').send(cats[1]);
+        await request(app).delete(`/cats/${cat2Res.body.id}`);
+        const cat1 = await request(app).get(`/cats/${cat1Res.body.id}`);
+        const cat2 = await request(app).get(`/cats/${cat2Res.body.id}`);
+        expect(JSON.parse(cat1.body)).toEqual(
+            { 'name': 'cat 1', 'age': 3, id: expect.any(String) }
+        );
+        expect(cat2.statusCode).toEqual(404);
+
     });
 });

@@ -11,10 +11,10 @@ class SimpleDb {
     }
 
     save(obj) {
-        obj.id = this.generateId();
-        const pathToWrite = path.join(this.path, obj.id + '.json');
+        obj.id = this.generateId() + '.json';
+        const pathToWrite = path.join(this.path, obj.id);
         return fs.writeFile(pathToWrite, JSON.stringify(obj)).then(() => {
-            return obj.id + '.json';
+            return obj.id;
         });
     }
 
