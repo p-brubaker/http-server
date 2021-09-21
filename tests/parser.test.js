@@ -18,7 +18,7 @@ describe('Body Parser takes a req obj and returns a promise for the pased body',
             url: '/cats', 
             contentType: 'application/json',
             // eslint-disable-next-line quotes
-            body: "[{'name': 'furball'}, {'name': 'other cat'}]"
+            body: `[{"name": "furball"}, {"name": "other cat"}]`
         };
         const parsedBody = [
             { 'name': 'furball' },
