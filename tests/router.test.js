@@ -36,8 +36,8 @@ describe('Resource Router', () => {
             { 'name': 'allergies', 'age': 14, id: catId }
         );
         const newCatObj = await request(app).get(`/cats/${catId}`);
-        expect(JSON.parse(newCatObj).toEqual(
+        expect(JSON.parse(newCatObj.body)).toEqual(
             { 'name': 'allergies', 'age': 14, id: catId }
-        ));
+        );
     });
 });
