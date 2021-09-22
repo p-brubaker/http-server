@@ -14,6 +14,7 @@ describe('Resource Router', () => {
     xit('should match POST /cats and GET /cats/:id', async () => {
         const postCatsResponse = await request(app)
             .post('/cats')
+            .set('Content-Type', 'application/json')
             .send({ name: 'furball', age: 13 });
         expect(postCatsResponse.body).toEqual({
             message: 'cat posted successfully',
@@ -32,10 +33,12 @@ describe('Resource Router', () => {
     xit('should PUT /cats/:id', async () => {
         const postCatsResponse = await request(app)
             .post('/cats')
+            .set('Content-Type', 'application/json')
             .send({ name: 'furball', age: 13 });
         const catId = postCatsResponse.body.id;
         await request(app)
             .put(`/cats/${catId}`)
+            .set('Content-Type', 'application/json')
             .send({ name: 'allergies', age: 14, id: catId });
         const newCatObj = await request(app).get(`/cats/${catId}`);
         expect(JSON.parse(newCatObj.body)).toEqual({
